@@ -1,0 +1,127 @@
+*****  *****
+Angular CLI: 11.0.5
+Node: 14.15.4
+OS: win32 x64
+*****  *****
+
+npm install -g @angular/cli
+ng new my-dream-app
+cd my-dream-app
+q
+
+
+**** Add Bootstrap into project
+
+npm install --save bootstrap@latest
+
+> it will add bootstrap folder into node_modules library
+> then go to the angular.json -> add bootstrap.min.css path into styles section.
+
+
+************** Creating a component using the Angular CLI **************
+1.	From a terminal window, navigate to the directory containing your application.
+2.	Run the ng generate component <component-name> command, where <component-name> is the name of your new component.
+
+ng g c new-component -it -is
+
+-it : means inline template
+-is : means inline styles
+
+	
+	Property Binding use []
+	Event Binding use ()
+
+>$event can be use to fetch the event data from input field of HTML
+
+@@@@@@@@@@@@@
+***** FormModule is required for Two-Way-Binding
+> For two-way binding to work, you need to enabled the ngModel directive. This is done by adding the FormsModule to the imports[] array in the appModules
+	you then also need to add the import from @angular/forms in the app.modules.ts file: import { FormsModule } from '@angular/forms';
+> Easier way of binding to some data. with two-way data binding, we combine property and event binding.
+
+import { NgForm, FormsModule } from '@angular/forms';
+
+
+
+##########################
+Router: Main routing service. Enables navigation between views based on user actions.
+Route: Maps a URL path to component.
+RouterOutlet: Acts as a placeholder. Renders the desired component based on route.
+RouterLink: Link to specific routes in your application.
+ActivatedRoute: The current active route that loaded the component. Useful for accessing route parameteras.
+
+***** Stpes of Defining Routing: ******
+Step 1: Define Routes
+ *A route has a path and a reference to a component
+ *When the user selects the link for the route path
+ 	* Angular will create a new instance of component
+
+ 		const	routes: Routes = [
+ 			{ path: 'products', component: ProductListComponent}
+ 		];
+
+ * Add more routes to handle for other cases:
+ 	const routes: Routes = [
+ 		{path: 'category/:id', component: ProductListComponent},
+ 		{path: 'category', component: ProductListComponent},
+ 		{path: 'products', component: ProductListComponent},
+ 		{path: '', redirectTo: '/products', pathMatch: 'full'},
+ 		{path: '**', redirectTo: '/products', pathMatch: 'full'},
+ 		{path: '', component: ProductListComponent},
+ 	];
+
+ 	// pathMatch: 'full' -> full means match on this exactly. Default 	option is prefix ... match if path start with given value
+
+ 	// path: '', redirectTo: '/products' -> No path given, redirect to: /products
+ 	This is an exception to the rule about "no leading slashes"
+
+ 	// path: '**' -> This is the generic wildcard. It will match on anything that didn't match above routes. 
+
+ Order of routes is important. First match wins. Start from most specific to generic.
+
+  * Can add a custom PageNotFoundComponent... for 404s
+
+	  const routes: Routes =[
+	  	...
+	  	{path: '**', component: PageNotFoundComponent}
+	  ];
+	Custom component that you create Can give any name and provide your own custom view
+
+
+
+Step 2: Configure Router based on our routes
+	
+		imports:[ RouterModule.forRoot(routes)]
+
+Step 3: Define the Route Outlet
+
+		* Router Outlet acts as a placeholder.
+		* Renders the desired component based on route.
+		// Only updates a section of your page Doesn't reload entire page
+		<router-outlet></router-outlet>
+
+		*  Update the app.component.html(any HTML page) to use Router Outlet. Based on the Router Configuration Display appropriate component here.
+
+Step 4: Set up Router Link to pass category id param
+		
+		* In out HTML page, set up links to our route
+		* Pass category id as a parameter
+
+Step 5: Enhance ProductListComponent to read category id param
+		* Need to read category id parameter
+
+		currentCategoryId: number;
+		...
+		...
+		this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
+
+		// route: Use the activated route
+		// snapshot: State of route at this given moment in time
+		// paramMap: Map of all the route parameters
+		// id: Read the  id parameter 
+
+Step 6: Modify Spring Boot app - REST Repository need new method
+		
+		* Spring Data REST and Spring Data JPA support "query methods"
+		* Spring will construct a query based on method naming conventions
+		* Method starting with: findBy, readBy, queryBy, etc.

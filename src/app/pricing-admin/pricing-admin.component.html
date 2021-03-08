@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<h3><strong>Price Admin</strong></h3>
+<br />
+<div style="background-color: blue; color: white;">
+  <span style="margin-left: 5em;"> Welcome </span>
+</div>
+<br />
+
+<div class="overlay" *ngIf="loading">
+  <div class="center">
+    <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
+    </mat-progress-spinner>
+  </div>
+</div>
+<div>
+<form class="comment-form">&nbsp;&nbsp;&nbsp;&nbsp;
+  <textarea rows="20" cols="70" id="mailtext" required [(ngModel)]="apiRequest" name="apiRequest"
+    #mailtextvalidityMsg="ngModel" placeholder="Enter the API Request">Hi there</textarea>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="primary" (click)="onSubmit()">Send</button>&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <textarea rows="20" cols="70" id="mailtext" required [(ngModel)]="apiResponse" name="apiResponse"
+    #mailtextvalidityMsg="ngModel" placeholder="API Response">Hi there</textarea>
+</form>
+</div>

@@ -1,0 +1,48 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Nautilus 3.0</mat-toolbar>
+    <mat-nav-list>
+      
+      <a mat-list-item routerLink="pricing-admin" >Pricing Admin</a>
+      <a mat-list-item routerLink="collection" >Collection</a>
+      <a mat-list-item routerLink="Vendor" >Vendor</a>
+      <a mat-list-item routerLink="Product" >Product</a>
+      <a mat-list-item routerLink="Segment/Template" >Segment/Template</a>
+      <a mat-list-item routerLink="Customer" >Customer</a>
+      <a mat-list-item routerLink="SystemDefault" >System Default</a>
+      <a mat-list-item routerLink="CurrencyBump" >Currency Bump</a>
+      <a mat-list-item routerLink="Audit" >Audit</a>
+      <a mat-list-item routerLink="PriceSim" >Price Sim</a>
+      <a mat-list-item routerLink="RuleUpload" >Rule Upload</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon"></mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <a  routerLink="pricing-admin" >My Nautilus</a>
+      <a  routerLink="collection" >Account Management</a>
+      <a  routerLink="Vendor" >BPLS Admin</a>
+      <a  routerLink="Product" >C2LV3 Order Mgmt</a>
+      <a  routerLink="Segment/Template" >ChoiceAdvantage</a>
+      <a  routerLink="Customer" >Admin</a>
+      <a  routerLink="SystemDefault" >IT</a>
+      <a  routerLink="CurrencyBump" >Marketing</a>
+      <a  routerLink="Audit" >Pricing Admin</a>
+      <a  routerLink="PriceSim" >Pricing Simulation</a>
+      <a  routerLink="collection" >Product Mgmt</a>
+      <a  routerLink="collection" >Reports</a>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
