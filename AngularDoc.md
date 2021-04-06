@@ -118,7 +118,7 @@ this.employeeForm = this.fb.group({
 
 
 ################################################################################
-################		**Angular Form Control ValueChanges**		################
+################		Angular Form Control ValueChanges		################
 ################################################################################
 								AbstractControl     <-------- valueChanges Observable
 					|-----------'			'---------|
@@ -142,3 +142,46 @@ Loop through all form controls in a form group inclding nested form group
 > Set and clear validators
 > Mark form controls as dirty, touched, etc.
 > Move validation to the component class.
+
+################################################################################
+#### Move validation messages to the component class in reactive form		####
+################################################################################
+
+Advantage: Easly unit test validation logic instead of hard coded validation.
+change validation dynamiclly at runtime based on the decision made in code or
+user selections.
+
+Dynamically Add or Remove Validators
+
+				AbstractControl     <-------- setValidators(); clearValidator(); updateValueAndValidity();
+	|-----------'			'---------|
+FromGroup						FromControl
+
+
+################################################################################
+####   		Angular Form Array					    ####
+################################################################################
+
+Angular Reactive Fomr building Block
+> FormControl
+> FormGroup
+> FormArray
+
+A FormArray as the name implies is an array. It contains an array of:
+> FormControl
+> FormGroup
+> Nested FormArray
+
+Two ways of create a FormArray
+> Using the new keyword
+
+const formArray = new FormArray([
+	new FormControl('John', Validators.required),
+	new FormControl('ID', Validators.required),
+]);
+
+> Using the array() method of the FormBuilder class
+const formArray = this.fb.array([
+	new FormControl('John', Validators.required),
+	new FormControl('ID', Validators.required),
+])
